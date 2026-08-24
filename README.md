@@ -1,3 +1,4 @@
+
 # Hotel Booking System
 
 A simple **Hotel Booking System** built using Python. This beginner-friendly project allows users to view rooms, book rooms, view bookings, and cancel bookings.
