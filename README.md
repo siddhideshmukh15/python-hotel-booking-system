@@ -1,6 +1,7 @@
-# Hotel Booking System
 
-A simple **Hotel Booking System** built using Python. This beginner-friendly project allows users to view rooms, book rooms, view bookings, and cancel bookings.
+# Hotel Booking System#
+
+A simple **Hotel Booking System** built using Python. This beginner-friendly project allows users to view rooms, book rooms, view bookings, and cancel bookings and search bookings.
 
 ## Features
 
@@ -31,9 +32,9 @@ A simple **Hotel Booking System** built using Python. This beginner-friendly pro
 ## Concepts Learned
 
 - Dictionaries
-- `while` loop
-- `for` loop
-- `if-elif-else` statements
+- while loop
+- for loop
+- if-elif-else statements
 - User input
 - Adding and deleting data
 - Menu-driven programming
