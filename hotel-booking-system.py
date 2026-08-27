@@ -1,133 +1,167 @@
-rooms ={
-    "101":{"type":"Single","price":1000},
-    "102":{"type":"Double","price":1800},
-    "103":{"type":"Delux","price":3000}
-    }
+rooms = {
+    "101": {"type": "Single", "price": 1000},
+    "102": {"type": "Double", "price": 1800},
+    "103": {"type": "Deluxe", "price": 3000}
+}
 
-bookings ={}
-booking_count= 1
+bookings = {}
+booking_count = 1
 
 while True:
-    print("\n === Hotel Booking System===")
-    print("1. view Rooms")
-    print("2. Book Rooms")
+    print("\n===== Hotel Booking System =====")
+    print("1. View Rooms")
+    print("2. Book Room")
     print("3. View Bookings")
-    print("6. Search bookings")
-    print("5. Cancel Bookings")
+    print("4. Search Booking")
+    print("5. Cancel Booking")
     print("6. Exit")
-    
-    Choice = input("Enter your choice:")
-    
-    if Choice =="1":
-        print("\n Available Rooms:")
-        
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        print("\n===== Available Rooms =====")
+
         for room_id, room in rooms.items():
             if room_id in bookings:
-                status ="Booked"
+                status = "Booked"
             else:
                 status = "Available"
-                
-                print(room_id,"-",room["type"],
-                "- rs", room["price"], "_",status)
-                
-    elif Choice =="2":
-        room_id = input("Enter room number:")
-        
+
+            print(room_id, "-", room["type"], "- Rs.", room["price"], "-", status)
+
+    elif choice == "2":
+        room_id = input("Enter room number: ")
+
         if room_id not in rooms:
             print("Room not found!")
-            
-        
+
         elif room_id in bookings:
-            print("Room is already booked successfully!")
-                
-            
+            print("Room is already booked!")
+
         else:
-            name= input("Enter customer name:")
-            phone= input("Enter phone number:")
-            guests=int(input("Enter number of guests:"))
-            check_in= input("Enter check-in date:")
+            name = input("Enter customer name: ")
+            phone = input("Enter phone number: ")
+
+            try:
+                guests = int(input("Enter number of guests: "))
+                nights = int(input("Enter number of nights: "))
+            except ValueError:
+                print("Please enter a valid number!")
+                continue
+
+            check_in = input("Enter check-in date: ")
             check_out = input("Enter check-out date: ")
-            nights = int(input("Enter number of nights: "))
-            
+
             total = rooms[room_id]["price"] * nights
-            
-            booking_id = "B"+ str(booking_count)
-            booking_count+=1
-            
-            bookings[room_id]={
+
+            print("\nPayment Methods:")
+            print("1. UPI")
+            print("2. Cash")
+            print("3. Card")
+
+            payment_choice = input("Choose payment method: ")
+
+            if payment_choice == "1":
+                payment_method = "UPI"
+            elif payment_choice == "2":
+                payment_method = "Cash"
+            elif payment_choice == "3":
+                payment_method = "Card"
+            else:
+                print("Invalid payment method!")
+                continue
+
+            payment_status = input("Enter payment status (Paid/Pending): ")
+
+            booking_id = "B" + str(booking_count)
+            booking_count += 1
+
+            bookings[room_id] = {
                 "booking_id": booking_id,
-                "name":name,
-                "phone":phone,
-                "guests":guests,
+                "name": name,
+                "phone": phone,
+                "guests": guests,
                 "check_in": check_in,
                 "check_out": check_out,
                 "nights": nights,
-                "total": total
+                "total": total,
+                "payment_method": payment_method,
+                "payment_status": payment_status
             }
-            
-            print("\n === Booking confirmed===")
+
+            print("\n===== Booking Confirmed =====")
             print("Booking ID:", booking_id)
-            print("Customer:",name)
+            print("Customer:", name)
             print("Room:", room_id)
             print("Guests:", guests)
+            print("Check-in:", check_in)
+            print("Check-out:", check_out)
             print("Nights:", nights)
-            print("Total: rs", total)
-            
-    elif Choice == "3":
+            print("Payment Method:", payment_method)
+            print("Payment Status:", payment_status)
+            print("Total: Rs.", total)
+
+    elif choice == "3":
         if not bookings:
-            print("No bookings found!")
+            print("\nNo bookings found!")
         else:
             print("\n===== View Bookings =====")
 
-        for room_id, booking in bookings.items():
-            print("\nBooking ID:", booking["booking_id"])
-            print("Customer:", booking["name"])
-            print("Phone:", booking["phone"])
-            print("Room:", room_id)
-            print("Guests:", booking["guests"])
-            print("Check-in:", booking["check_in"])
-            print("Check-out:", booking["check_out"])
-            print("Nights:", booking["nights"])
-            print("Total: ₹", booking["total"])
-                
-    elif Choice =="4":
-        booking_id= input("Enter booking ID:")
+            for room_id, booking in bookings.items():
+                print("\nBooking ID:", booking["booking_id"])
+                print("Customer:", booking["name"])
+                print("Phone:", booking["phone"])
+                print("Room:", room_id)
+                print("Guests:", booking["guests"])
+                print("Check-in:", booking["check_in"])
+                print("Check-out:", booking["check_out"])
+                print("Nights:", booking["nights"])
+                print("Payment Method:", booking["payment_method"])
+                print("Payment Status:", booking["payment_status"])
+                print("Total: Rs.", booking["total"])
+
+    elif choice == "4":
+        booking_id = input("Enter booking ID: ")
         found = False
-        
+
         for room_id, booking in bookings.items():
             if booking["booking_id"] == booking_id:
-                print("\n Booking Found!")
+                print("\n===== Booking Found =====")
+                print("Booking ID:", booking["booking_id"])
                 print("Customer:", booking["name"])
+                print("Phone:", booking["phone"])
                 print("Room:", room_id)
-                print("Guests:",booking["guests"])
-                print("Total: rs",booking["total"])
-                found= True
+                print("Guests:", booking["guests"])
+                print("Check-in:", booking["check_in"])
+                print("Check-out:", booking["check_out"])
+                print("Nights:", booking["nights"])
+                print("Payment Method:", booking["payment_method"])
+                print("Payment Status:", booking["payment_status"])
+                print("Total: Rs.", booking["total"])
+
+                found = True
+                break
+
         if not found:
             print("Booking not found!")
-            
-    elif Choice =="5":
-        booking_id=input("Enter booking ID to cancel:")
-        found=False
-        
+
+    elif choice == "5":
+        booking_id = input("Enter booking ID to cancel: ")
+        found = False
+
         for room_id, booking in list(bookings.items()):
-            for room_id, booking in bookings.items():
-             if booking["booking_id"] == booking_id:
-        
+            if booking["booking_id"] == booking_id:
+                del bookings[room_id]
                 print("Booking cancelled successfully!")
                 found = True
-                
-            
-            if not found:
-                print("Booking not found!")
-                
-    elif Choice =="6":
-        print("Thank you for using Hotel Booking System!")
+                break
+
+        if not found:
+            print("Booking not found!")
+
+    elif choice == "6":
+        print("\nThank you for using Hotel Booking System!")
         break
-    
+
     else:
-        print("Invalid choice!")
-        
-            
-                
-        
-    
+        print("Invalid choice! Please enter a number from 1 to 6.")
